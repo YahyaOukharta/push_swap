@@ -1,6 +1,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "../libft/libft.h"
+# include "libft.h"
+# include "get_next_line.h"
+# include "limits.h"
 
 typedef struct	s_stack
 {
@@ -22,5 +24,11 @@ void			op_swap(t_stack *s);
 void			op_push(t_stack *from, t_stack *to);
 void			op_rotate(t_stack *s);
 void			op_reverse_rotate(t_stack *s);
+
+typedef struct	s_operations
+{
+	char	**op_codes;
+	void	(*op_funcs[11])(t_stack *a, t_stack *b);
+}				t_operations;
 
 #endif

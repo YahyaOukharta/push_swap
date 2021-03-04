@@ -4,19 +4,29 @@ PUSH_SWAP_NAME = push_swap
 LIBFT_PATH = libft/
 LIBFT_NAME = $(LIBFT_PATH)libft.a
 
+GNL_PATH = gnl/
+GNL_SRCS = $(GNL_PATH)get_next_line.c $(GNL_PATH)get_next_line_utils.c -D BUFFER_SIZE=10
 INCLUDES_PATH = includes/
 
 CHECKER_SRCS = srcs/checker/*.c
 PUSH_SWAP_SRCS = srcs/push_swap/main.c
 
+FLAGS = -fsanitize=address #-Wall -Werror -Wextra
+
 all: $(CHECKER_NAME) $(PUSH_SWAP_NAME) 
 
 $(CHECKER_NAME): $(LIBFT_NAME)
-	gcc $(CHECKER_SRCS) -I $(INCLUDES_PATH) -L $(LIBFT_PATH) -lft -o $(CHECKER_NAME)
+	gcc $(FLAGS) $(CHECKER_SRCS) $(GNL_SRCS) \
+		-I $(INCLUDES_PATH) -I $(LIBFT_PATH) -I $(GNL_PATH) \
+		-L $(LIBFT_PATH) -lft \
+		-o $(CHECKER_NAME)
 
 $(PUSH_SWAP_NAME): $(LIBFT_NAME)
-	gcc $(PUSH_SWAP_SRCS) -I $(INCLUDES_PATH) -L $(LIBFT_PATH) -lft -o $(PUSH_SWAP_NAME)
-
+	gcc $(FLAGS) $(PUSH_SWAP_SRCS) $(GNL_SRCS) \
+		-I $(INCLUDES_PATH) -I $(LIBFT_PATH) -I $(GNL_PATH) \
+		-L $(LIBFT_PATH) -lft \
+		-o $(PUSH_SWAP_NAME)
+		
 $(LIBFT_NAME):
 	make -C $(LIBFT_PATH)
 
@@ -30,7 +40,7 @@ fclean: clean
 re: fclean all
 
 c : re 
-	./checker
+	./checker 1 2 3 4 5 6
 
 ps : re 
 	./push_swap

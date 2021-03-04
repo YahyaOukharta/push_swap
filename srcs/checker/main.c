@@ -1,34 +1,53 @@
 #include "push_swap.h"
 
+int is_valid_int(char *s)
+{
+    int i;
+    unsigned long long tmp;
+
+    i = -1;
+    while (s[++i])
+    {
+        if (!ft_isdigit(s[i]))
+            return (0);
+    }
+    tmp = (unsigned long long)ft_atoi(s);
+    return (1);
+}
+
+int send_error(t_stack *a, t_stack *b)
+{
+    free_stack(a);
+    free_stack(b);
+    ft_putstr_fd("Error\n", 2);
+    return (1);
+}
+
 int main(int ac, char **av)
 {
-    ft_putstr_fd("CHECKER\n",1);
+    t_stack *a;
+    t_stack *b;
+    int     i;
+    char    *line;
 
-    t_stack     *a = new_stack(2);
-    t_stack     *b = new_stack(10);
-
-    int           i = 1;
-
-    while (!is_full_s(a)) //fill stack a
+    a = new_stack(ac - 1);
+    b = new_stack(ac - 1);
+    i = ac - 1;
+    while (i > 0)
     {
-       push_to_stack(a, i--);
+        if (!is_valid_int(av[i]))
+            return (send_error(a, b));
+        push_to_stack(a, ft_atoi(av[i]));
+        i--;
+    }
+    while (get_next_line(0, &line) > 0)
+    {
+        ft_putstr_fd(line, 1);
+        ft_putchar_fd('\n', 1);
+        free(line);
     }
 
-    ft_putnbr_fd(stack_size(a), 1);
-    
-    ft_putchar_fd('\n', 1);
-
-    //op_swap(a);
-    //op_push(a, b);
-    // op_rotate(a);
-    op_reverse_rotate(a);
-    op_reverse_rotate(a);
-    
-    while (!is_empty_s(a))
-    {
-        ft_putnbr_fd(pop_stack(a), 1);
-        ft_putchar_fd(' ', 1);
-    }
-
+    free_stack(a);
+    free_stack(b);
     return (0);
 }
