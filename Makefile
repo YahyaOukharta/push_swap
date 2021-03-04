@@ -6,7 +6,7 @@ LIBFT_NAME = $(LIBFT_PATH)libft.a
 
 INCLUDES_PATH = includes/
 
-CHECKER_SRCS = srcs/checker/main.c
+CHECKER_SRCS = srcs/checker/*.c
 PUSH_SWAP_SRCS = srcs/push_swap/main.c
 
 all: $(CHECKER_NAME) $(PUSH_SWAP_NAME) 
@@ -28,3 +28,9 @@ fclean: clean
 	rm -f $(CHECKER_NAME) $(PUSH_SWAP_NAME) 
 
 re: fclean all
+
+c : re 
+	./checker
+
+ps : re 
+	./push_swap
