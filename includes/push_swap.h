@@ -19,7 +19,6 @@ int				push_to_stack(t_stack *s, int i);
 int				stack_size(t_stack *s);
 void			free_stack(t_stack *s);
 
-
 void			op_swap(t_stack *s);
 void			op_push(t_stack *from, t_stack *to);
 void			op_rotate(t_stack *s);
@@ -27,8 +26,26 @@ void			op_reverse_rotate(t_stack *s);
 
 typedef struct	s_operations
 {
-	char	**op_codes;
-	void	(*op_funcs[11])(t_stack *a, t_stack *b);
+	char		**op_codes;
+	void		(*op_funcs[11])(t_stack *a, t_stack *b);
 }				t_operations;
+
+void			op_sa(t_stack *a, t_stack *b);
+void			op_sb(t_stack *a, t_stack *b);
+void			op_ss(t_stack *a, t_stack *b);
+void			op_pa(t_stack *a, t_stack *b);
+void			op_pb(t_stack *a, t_stack *b);
+void			op_ra(t_stack *a, t_stack *b);
+void			op_rb(t_stack *a, t_stack *b);
+void			op_rr(t_stack *a, t_stack *b);
+void			op_rra(t_stack *a, t_stack *b);
+void			op_rrb(t_stack *a, t_stack *b);
+void			op_rrr(t_stack *a, t_stack *b);
+void			init_operations(t_operations **ops_table);
+void			free_operations(t_operations *ops_table);
+
+int				max(int a, int b);
+int				free_s_tab(char **tab);
+int				index_of_in_tab(char **tab, char *str);
 
 #endif

@@ -11,7 +11,7 @@ INCLUDES_PATH = includes/
 CHECKER_SRCS = srcs/checker/*.c
 PUSH_SWAP_SRCS = srcs/push_swap/main.c
 
-FLAGS = -fsanitize=address #-Wall -Werror -Wextra
+FLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
 
 all: $(CHECKER_NAME) $(PUSH_SWAP_NAME) 
 
