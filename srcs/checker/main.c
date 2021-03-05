@@ -58,7 +58,7 @@ int main(int ac, char **av)
 	i = ac - 1;
 	while (i > 0)
 	{
-		if (!is_valid_int(av[i]))
+		if (!is_valid_int(av[i]) || exists_in_stack(a, ft_atoi(av[i])))
 			return (send_error(a, b, ops));
 		push_to_stack(a, ft_atoi(av[i]));
 		i--;
@@ -72,7 +72,7 @@ int main(int ac, char **av)
 		free(line);
 	}
 	free(line);
-	ft_putstr_fd((!stack_size(b) && is_sorted_stack(a) ? "OK" : "KO"), 1);
+	ft_putstr_fd((!stack_size(b) && is_sorted_stack(a) ? "OK\n" : "KO\n"), 1);
 	free_stack(a);
 	free_stack(b);
 	free_operations(ops);

@@ -18,6 +18,7 @@ int				pop_stack(t_stack *s);
 int				push_to_stack(t_stack *s, int i);
 int				stack_size(t_stack *s);
 void			free_stack(t_stack *s);
+int				exists_in_stack(t_stack *s, int value);
 
 void			op_swap(t_stack *s);
 void			op_push(t_stack *from, t_stack *to);

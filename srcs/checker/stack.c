@@ -48,3 +48,17 @@ int				stack_size(t_stack *s)
 {
 	return (s->top_index + 1);
 }
+
+int				exists_in_stack(t_stack *s, int value)
+{
+	int	i;
+
+	i = 0;
+	while (i <= s->top_index)
+	{
+		if (s->content[i] == value)
+			return (1);
+		i++;
+	}
+	return (0);
+}
