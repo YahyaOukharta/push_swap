@@ -3,16 +3,18 @@
 int is_valid_int(char *s)
 {
 	int i;
-	unsigned long long tmp;
+	char *tmp;
 
 	i = -1;
 	while (s[++i])
 	{
-		if (!ft_isdigit(s[i]))
+		if (!ft_isdigit(s[i]) && !(i == 0 && s[i] == '-'))
 			return (0);
 	}
-	tmp = (unsigned long long)ft_atoi(s); // <<<<< ???????
-	return (1);
+	tmp = ft_itoa(ft_atoi(s));
+	i = ft_strlen(tmp);
+	free(tmp);
+	return (ft_strlen(s) == i);
 }
 
 int				is_sorted_stack(t_stack *s)
