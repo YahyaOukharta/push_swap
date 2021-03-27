@@ -8,8 +8,12 @@ GNL_PATH = gnl/
 GNL_SRCS = $(GNL_PATH)get_next_line.c $(GNL_PATH)get_next_line_utils.c -D BUFFER_SIZE=10
 INCLUDES_PATH = includes/
 
-CHECKER_SRCS = srcs/checker/*.c
-PUSH_SWAP_SRCS = srcs/push_swap/main.c
+UTILS_SRCS = srcs/utils/*.c
+
+CHECKER_SRCS = srcs/checker/*.c $(UTILS_SRCS)
+PUSH_SWAP_SRCS = srcs/push_swap/main.c $(UTILS_SRCS)
+
+
 
 FLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
 
@@ -43,4 +47,4 @@ c : re
 	./checker 1 2 3 4 5 6
 
 ps : re 
-	./push_swap
+	./push_swap 1 3 2 7 6 4 

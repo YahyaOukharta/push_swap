@@ -19,6 +19,8 @@ int				push_to_stack(t_stack *s, int i);
 int				stack_size(t_stack *s);
 void			free_stack(t_stack *s);
 int				exists_in_stack(t_stack *s, int value);
+int				is_sorted_stack(t_stack *s);
+void			print_stack(t_stack *s);
 
 void			op_swap(t_stack *s);
 void			op_push(t_stack *from, t_stack *to);
@@ -48,5 +50,7 @@ void			free_operations(t_operations *ops_table);
 int				max(int a, int b);
 int				free_s_tab(char **tab);
 int				index_of_in_tab(char **tab, char *str);
+int				is_valid_int(char *s);
+int				send_error(t_stack *a, t_stack *b, t_operations *ops);
 
 #endif

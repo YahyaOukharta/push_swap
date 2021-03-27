@@ -62,3 +62,32 @@ int				exists_in_stack(t_stack *s, int value)
 	}
 	return (0);
 }
+
+int				is_sorted_stack(t_stack *s)
+{
+	int		i;
+
+	i = 1;
+	while (i <= s->top_index)
+	{
+		if (s->content[i] > s->content[i - 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void			print_stack(t_stack *s)
+{
+	int		i;
+
+	i = s->top_index;
+	while (i >= 0)
+	{
+		ft_putnbr_fd(s->content[i], 1);
+		if (i)
+			ft_putstr_fd(" - ", 1);
+		i--;
+	}
+	ft_putchar_fd('\n', 1);
+}
