@@ -24,34 +24,41 @@ void send_operations(t_stack *a, t_stack *b)
 {
 	int min_i;
 	int dir;
-	// find smallest, move to top, push to b
+	int i;
 
-	//while (min_i )
-	min_i = index_of_smallest(a);
-	
- printf("min i = %d, value = %d, mid point index = %d\n", min_i, a->content[min_i], a->top_index / 2);
-
-	dir = min_i - (a->top_index / 2);
-	printf("dir = %d\n", dir);
-	if (dir > 0)
+	while (!is_empty_s(a))
 	{
-		int i = a->top_index - min_i;
-		while (i)
+		min_i = index_of_smallest(a);
+		//printf("min i = %d, value = %d, mid point index = %d\n", min_i, a->content[min_i], a->top_index / 2);
+		dir = min_i - (a->top_index / 2);
+		//printf("dir = %d\n", dir);
+		if (dir > 0)
 		{
-			ft_putstr_fd("ra\n", 1);
-			op_rra(a, b);
-			i--;
+			i = a->top_index - min_i;
+			while (i)
+			{
+				ft_putstr_fd("ra\n", 1);
+				op_ra(a, b);
+				i--;
+			}
 		}
+		else
+		{
+			i = min_i + 1;
+			while (i)
+			{
+				ft_putstr_fd("rra\n", 1);
+				op_rra(a, b);
+				i--;
+			}
+		}
+		ft_putstr_fd("pb\n", 1);
+		op_pb(a, b);
 	}
-	else
+	while (!is_empty_s(b))
 	{
-		int i = min_i + 1;
-		while (i)
-		{
-			ft_putstr_fd("rra\n", 1);
-			op_ra(a, b);
-			i--;
-		}
+		ft_putstr_fd("pa\n", 1);
+		op_pa(a, b);
 	}
 }
 
@@ -73,10 +80,9 @@ int main(int ac, char **av)
 		push_to_stack(a, ft_atoi(av[i]));
 		i--;
 	}
-	print_stack(a);
-
+	//print_stack(a);
 	send_operations(a, b);
-	print_stack(a);
-
+	//print_stack(a);
+	//print_stack(b);
 	return (0);
 }
