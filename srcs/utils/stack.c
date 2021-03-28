@@ -67,6 +67,8 @@ int				is_sorted_stack(t_stack *s)
 {
 	int		i;
 
+	if (stack_size(s) == 1)
+		return (1);
 	i = 1;
 	while (i <= s->top_index)
 	{
@@ -86,7 +88,7 @@ void			print_stack(t_stack *s)
 	{
 		ft_putnbr_fd(s->content[i], 1);
 		if (i)
-			ft_putstr_fd(" - ", 1);
+			ft_putstr_fd(" | ", 1);
 		i--;
 	}
 	ft_putchar_fd('\n', 1);

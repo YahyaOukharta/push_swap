@@ -10,7 +10,7 @@ INCLUDES_PATH = includes/
 
 UTILS_SRCS = srcs/utils/*.c
 
-CHECKER_SRCS = srcs/checker/*.c $(UTILS_SRCS)
+CHECKER_SRCS = srcs/checker/main.c $(UTILS_SRCS)
 PUSH_SWAP_SRCS = srcs/push_swap/main.c $(UTILS_SRCS)
 
 

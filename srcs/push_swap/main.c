@@ -1,5 +1,60 @@
 #include "push_swap.h"
 
+int index_of_smallest(t_stack *s)
+{
+	int i;
+	int min; 
+	int ind;
+
+	min = 2147483647;
+	i = 0;
+	while (i <= s->top_index)
+	{
+		if (s->content[i] < min)
+		{
+			min = s->content[i];
+			ind = i;
+		}
+		i++;
+	}
+	return (ind);
+}
+
+void send_operations(t_stack *a, t_stack *b)
+{
+	int min_i;
+	int dir;
+	// find smallest, move to top, push to b
+
+	//while (min_i )
+	min_i = index_of_smallest(a);
+	
+ printf("min i = %d, value = %d, mid point index = %d\n", min_i, a->content[min_i], a->top_index / 2);
+
+	dir = min_i - (a->top_index / 2);
+	printf("dir = %d\n", dir);
+	if (dir > 0)
+	{
+		int i = a->top_index - min_i;
+		while (i)
+		{
+			ft_putstr_fd("ra\n", 1);
+			op_rra(a, b);
+			i--;
+		}
+	}
+	else
+	{
+		int i = min_i + 1;
+		while (i)
+		{
+			ft_putstr_fd("rra\n", 1);
+			op_ra(a, b);
+			i--;
+		}
+	}
+}
+
 int main(int ac, char **av)
 {
 	t_stack		*a;
@@ -19,5 +74,9 @@ int main(int ac, char **av)
 		i--;
 	}
 	print_stack(a);
+
+	send_operations(a, b);
+	print_stack(a);
+
 	return (0);
 }
