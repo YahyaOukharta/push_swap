@@ -26,6 +26,8 @@ void send_operations(t_stack *a, t_stack *b)
 	int dir;
 	int i;
 
+	if (is_sorted_stack(a))
+		return ;
 	while (!is_empty_s(a))
 	{
 		min_i = index_of_smallest(a);
@@ -62,6 +64,54 @@ void send_operations(t_stack *a, t_stack *b)
 	}
 }
 
+void	send_operations_3(t_stack *a, t_stack *b)
+{
+	if (a->content[1] > a->content[0])
+	{
+		ft_putstr_fd("rra\n", 1);
+		op_rra(a, b);
+	}
+	if (a->content[2] > a->content[1])
+	{
+		ft_putstr_fd("sa\n", 1);
+		op_sa(a, b);
+	}
+	if (a->content[2] > a->content[0])
+	{
+		ft_putstr_fd("ra\n", 1);
+		op_ra(a, b);
+	}
+}
+
+void	send_operations_5(t_stack *a, t_stack *b)
+{
+	ft_putstr_fd("pb\npb\n", 1);
+	op_pb(a, b);
+	op_pb(a, b);
+	send_operations_3(a, b);
+	while (a->content[0] > b->content[1])
+	{
+		ft_putstr_fd("ra\n", 1);
+		op_ra(a, b);
+	}
+	ft_putstr_fd("pa\n", 1);
+	op_pa(a, b);
+	while (a->content[0] > b->content[0])
+	{
+		ft_putstr_fd("ra\n", 1);
+		op_ra(a, b);
+	}
+	ft_putstr_fd("pa\n", 1);
+	op_pa(a, b);
+	while (!is_sorted_stack(a))
+	{
+		ft_putstr_fd("ra\n", 1);
+		op_ra(a, b);
+	}
+}
+
+// 1 2 4     3 -1
+
 int main(int ac, char **av)
 {
 	t_stack		*a;
@@ -81,7 +131,12 @@ int main(int ac, char **av)
 		i--;
 	}
 	//print_stack(a);
-	send_operations(a, b);
+	if (stack_size(a) == 3)
+		send_operations_3(a, b);
+	else if (stack_size(a) == 5)
+		send_operations_5(a, b);
+	else
+		send_operations(a, b);
 	//print_stack(a);
 	//print_stack(b);
 	return (0);
