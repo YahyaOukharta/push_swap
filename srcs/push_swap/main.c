@@ -68,8 +68,8 @@ void	send_operations_3(t_stack *a, t_stack *b)
 {
 	if (a->content[1] > a->content[0])
 	{
-		ft_putstr_fd("rra\n", 1);
-		op_rra(a, b);
+		ft_putstr_fd("ra\n", 1);
+		op_ra(a, b);
 	}
 	if (a->content[2] > a->content[1])
 	{
@@ -78,8 +78,8 @@ void	send_operations_3(t_stack *a, t_stack *b)
 	}
 	if (a->content[2] > a->content[0])
 	{
-		ft_putstr_fd("ra\n", 1);
-		op_ra(a, b);
+		ft_putstr_fd("rra\n", 1);
+		op_rra(a, b);
 	}
 }
 
@@ -89,25 +89,31 @@ void	send_operations_5(t_stack *a, t_stack *b)
 	op_pb(a, b);
 	op_pb(a, b);
 	send_operations_3(a, b);
-	while (a->content[0] > b->content[1])
+	print_stack(a);
+	print_stack(b);
+	while (a->content[2] < b->content[1])
 	{
 		ft_putstr_fd("ra\n", 1);
 		op_ra(a, b);
 	}
 	ft_putstr_fd("pa\n", 1);
 	op_pa(a, b);
-	while (a->content[0] > b->content[0])
-	{
-		ft_putstr_fd("ra\n", 1);
-		op_ra(a, b);
-	}
-	ft_putstr_fd("pa\n", 1);
-	op_pa(a, b);
-	while (!is_sorted_stack(a))
-	{
-		ft_putstr_fd("ra\n", 1);
-		op_ra(a, b);
-	}
+	print_stack(a);
+	print_stack(b);
+	// while (a->content[2] < b->content[0])
+	// {
+	// 	ft_putstr_fd("rra\n", 1);
+	// 	op_rra(a, b);
+	// }
+	// ft_putstr_fd("pa\n", 1);
+	// op_pa(a, b);
+	// print_stack(a);
+	// print_stack(b);
+	// while (!is_sorted_stack(a))
+	// {
+	// 	ft_putstr_fd("ra\n", 1);
+	// 	op_ra(a, b);
+	// }
 }
 
 // 1 2 4     3 -1
@@ -130,6 +136,8 @@ int main(int ac, char **av)
 		push_to_stack(a, ft_atoi(av[i]));
 		i--;
 	}
+	if (is_sorted_stack(a))
+		return (0);
 	//print_stack(a);
 	if (stack_size(a) == 3)
 		send_operations_3(a, b);
@@ -137,7 +145,7 @@ int main(int ac, char **av)
 		send_operations_5(a, b);
 	else
 		send_operations(a, b);
-	//print_stack(a);
-	//print_stack(b);
+	print_stack(a);
+	print_stack(b);
 	return (0);
 }
