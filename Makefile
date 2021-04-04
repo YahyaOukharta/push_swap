@@ -57,3 +57,7 @@ test3 : re
 	./push_swap 1 3 2 #sa ra
 	./push_swap 2 3 1 #rra
 	 
+test5 : re
+	clear
+	./push_swap 80 5 2 4 3
+
