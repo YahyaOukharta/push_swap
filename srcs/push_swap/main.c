@@ -66,20 +66,34 @@ void send_operations(t_stack *a, t_stack *b)
 
 void	send_operations_3(t_stack *a, t_stack *b)
 {
-	if (a->content[1] > a->content[0])
+	if (a->content[2] < a->content[1] && a->content[1] > a->content[0] && a->content[0] < a->content[2])
+	{
+		ft_putstr_fd("rra\n", 1);
+		op_rra(a, b);
+		return ;
+	}
+	if (a->content[2] > a->content[1] && a->content[1] < a->content[0] && a->content[0] < a->content[2])
 	{
 		ft_putstr_fd("ra\n", 1);
 		op_ra(a, b);
+		return ;
 	}
 	if (a->content[2] > a->content[1])
 	{
 		ft_putstr_fd("sa\n", 1);
 		op_sa(a, b);
+		if (a->content[2] < a->content[1] && a->content[1] > a->content[0] && a->content[0] < a->content[2])
+		{
+			ft_putstr_fd("rra\n", 1);
+			op_rra(a, b);
+		}
 	}
-	if (a->content[2] > a->content[0])
+	else if (a->content[1] > a->content[0])
 	{
-		ft_putstr_fd("rra\n", 1);
-		op_rra(a, b);
+		ft_putstr_fd("sa\n", 1);
+		op_sa(a, b);
+		ft_putstr_fd("ra\n", 1);
+		op_ra(a, b);
 	}
 }
 
@@ -179,5 +193,8 @@ int main(int ac, char **av)
 		send_operations(a, b);
 	print_stack(a);
 	print_stack(b);
+	free_stack(a);
+	free_stack(b);
+	
 	return (0);
 }

@@ -48,3 +48,12 @@ c : re
 
 ps : re 
 	./push_swap 1 3 2 7 6 4 
+
+test3 : re
+	clear
+	./push_swap 2 1 3 #sa
+	./push_swap 3 2 1 #sa rra
+	./push_swap 3 1 2 #ra
+	./push_swap 1 3 2 #sa ra
+	./push_swap 2 3 1 #rra
+	 
