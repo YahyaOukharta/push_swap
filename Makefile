@@ -15,7 +15,7 @@ PUSH_SWAP_SRCS = srcs/push_swap/main.c $(UTILS_SRCS)
 
 
 
-FLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
+FLAGS = #-fsanitize=address -g #-Wall -Werror -Wextra
 
 all: $(CHECKER_NAME) $(PUSH_SWAP_NAME) 
 
@@ -59,5 +59,9 @@ test3 : re
 	 
 test5 : re
 	clear
-	./push_swap 80 5 2 4 3
+	./push_swap 1 5 80 4 903
 
+random:
+	bash random.sh | xargs -t ./push_swap 
+
+	

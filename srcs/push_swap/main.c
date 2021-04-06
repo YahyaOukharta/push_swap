@@ -20,6 +20,36 @@ int index_of_smallest(t_stack *s)
 	return (ind);
 }
 
+void	move_smallest_to_top(t_stack *a, t_stack *b)
+{
+	int i;
+	int min_i;
+	int dir;
+
+	dir = min_i - (a->top_index / 2);
+	min_i = index_of_smallest(a);
+	if (dir > 0)
+	{
+		i = a->top_index - min_i;
+		while (i)
+		{
+			ft_putstr_fd("ra\n", 1);
+			op_ra(a, b);
+			i--;
+		}
+	}
+	else
+	{
+		i = min_i + 1;
+		while (i)
+		{
+			ft_putstr_fd("rra\n", 1);
+			op_rra(a, b);
+			i--;
+		}
+	}
+}
+//./push_swap 5 80 2 98 90 | ./checker 5 80 2 98 90
 void send_operations(t_stack *a, t_stack *b)
 {
 	int min_i;
@@ -104,8 +134,8 @@ void	send_operations_5(t_stack *a, t_stack *b)
 	op_pb(a, b);
 	op_pb(a, b);
 	send_operations_3(a, b);
-	print_stack(a);
-	print_stack(b);
+	// print_stack(a);
+	// print_stack(b);
 	if (a->content[0] > b->content[1])
 	{
 		while (a->content[2] < b->content[1])
@@ -124,14 +154,17 @@ void	send_operations_5(t_stack *a, t_stack *b)
 		ft_putstr_fd("ra\n", 1);
 		op_ra(a, b);
 	}
-	print_stack(a);
-	print_stack(b);
+	// print_stack(a);
+	// print_stack(b);
 	while (i > 0)
 	{
-		ft_putstr_fd("ra\n", 1);
-		op_ra(a, b);
+		ft_putstr_fd("rra\n", 1);
+		op_rra(a, b);
 		i--;
 	}
+	// print_stack(a);
+	// print_stack(b);
+	//printf("p2\n");
 	if (a->content[0] > b->content[0])
 	{
 		while (a->content[2] < b->content[0])
@@ -148,18 +181,15 @@ void	send_operations_5(t_stack *a, t_stack *b)
 		ft_putstr_fd("ra\n", 1);
 		op_ra(a, b);
 	}
+	// print_stack(a);
+	// print_stack(b);
+	// //move_smallest_to_top(a, b);
 	ft_putstr_fd("pa\n", 1);
 	op_pa(a, b);
-	print_stack(a);
-	print_stack(b);
-	while (i > 0)
-	{
-		ft_putstr_fd("ra\n", 1);
-		op_ra(a, b);
-		i--;
-	}
-	print_stack(a);
-	print_stack(b);
+	// print_stack(a);
+	// print_stack(b);
+	// print_stack(a);
+	// print_stack(b);
 }
 
 // 1 2 4     3 -1
@@ -191,8 +221,8 @@ int main(int ac, char **av)
 		send_operations_5(a, b);
 	else
 		send_operations(a, b);
-	print_stack(a);
-	print_stack(b);
+	// print_stack(a);
+	// print_stack(b);
 	free_stack(a);
 	free_stack(b);
 	
