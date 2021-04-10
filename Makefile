@@ -62,6 +62,4 @@ test5 : re
 	./push_swap 1 5 80 4 903
 
 random:
-	bash random.sh | xargs -t ./push_swap 
-
-	
+	bash random.sh  | xargs -t ./push_swap

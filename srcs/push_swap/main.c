@@ -20,21 +20,44 @@ int index_of_smallest(t_stack *s)
 	return (ind);
 }
 
+int index_of_second_smallest(t_stack *s)
+{
+	int i;
+	int min; 
+	int ind;
+	int smallest_ind;
+
+	min = 2147483647;
+	i = 0;
+	smallest_ind = index_of_smallest(s);
+	//printf("%d\n", smallest_ind);
+	while (i <= s->top_index)
+	{
+		if (s->content[i] < min && s->content[i] > s->content[smallest_ind])
+		{
+			min = s->content[i];
+			ind = i;
+		}
+		i++;
+	}
+	return (ind);
+}
+
 void	move_smallest_to_top(t_stack *a, t_stack *b)
 {
 	int i;
 	int min_i;
 	int dir;
 
-	dir = min_i - (a->top_index / 2);
 	min_i = index_of_smallest(a);
+	dir = min_i - (a->top_index / 2);
 	if (dir > 0)
 	{
 		i = a->top_index - min_i;
 		while (i)
 		{
-			ft_putstr_fd("ra\n", 1);
-			op_ra(a, b);
+			ft_putstr_fd("rra\n", 1);
+			op_rra(a, b);
 			i--;
 		}
 	}
@@ -43,56 +66,53 @@ void	move_smallest_to_top(t_stack *a, t_stack *b)
 		i = min_i + 1;
 		while (i)
 		{
-			ft_putstr_fd("rra\n", 1);
-			op_rra(a, b);
+			ft_putstr_fd("ra\n", 1);
+			op_ra(a, b);
 			i--;
 		}
 	}
 }
-//./push_swap 5 80 2 98 90 | ./checker 5 80 2 98 90
-void send_operations(t_stack *a, t_stack *b)
-{
-	int min_i;
-	int dir;
-	int i;
 
-	if (is_sorted_stack(a))
-		return ;
-	while (!is_empty_s(a))
+void	move_easiest_smallest_to_top(t_stack *a, t_stack *b)
+{
+	int i[2];
+	int min_i[2];
+	int dir[2];
+	int j ;
+	int d;
+	
+	min_i[0] = index_of_smallest(a);
+	dir[0] = min_i[0] - (a->top_index / 2);
+	if (dir[0] > 0)
+		i[0] = a->top_index - min_i[0]; //ra
+	else
+		i[0] = min_i[0] + 1; //rra
+	
+	min_i[1] = index_of_second_smallest(a);
+	dir[1] = min_i[1] - (a->top_index / 2);
+	if (dir[1] > 0)
+		i[1] = a->top_index - min_i[1]; //ra
+	else
+		i[1] = min_i[1] + 1; //rra
+
+	j = (i[0] < i[1] ? i[0] : i[1]);
+	d = (i[0] < i[1] ? dir[0] : dir[1]);
+	while (j)
 	{
-		min_i = index_of_smallest(a);
-		//printf("min i = %d, value = %d, mid point index = %d\n", min_i, a->content[min_i], a->top_index / 2);
-		dir = min_i - (a->top_index / 2);
-		//printf("dir = %d\n", dir);
 		if (dir > 0)
 		{
-			i = a->top_index - min_i;
-			while (i)
-			{
-				ft_putstr_fd("ra\n", 1);
-				op_ra(a, b);
-				i--;
-			}
+			ft_putstr_fd("rra\n", 1);
+			op_rra(a, b);
 		}
 		else
 		{
-			i = min_i + 1;
-			while (i)
-			{
-				ft_putstr_fd("rra\n", 1);
-				op_rra(a, b);
-				i--;
-			}
+			ft_putstr_fd("ra\n", 1);
+			op_ra(a, b);
 		}
-		ft_putstr_fd("pb\n", 1);
-		op_pb(a, b);
-	}
-	while (!is_empty_s(b))
-	{
-		ft_putstr_fd("pa\n", 1);
-		op_pa(a, b);
+		j--;
 	}
 }
+
 
 void	send_operations_3(t_stack *a, t_stack *b)
 {
@@ -130,66 +150,29 @@ void	send_operations_3(t_stack *a, t_stack *b)
 void	send_operations_5(t_stack *a, t_stack *b)
 {
 	int i = 0;
-	ft_putstr_fd("pb\npb\n", 1);
+	move_easiest_smallest_to_top(a, b);
+	ft_putstr_fd("pb\n", 1);
 	op_pb(a, b);
+	move_smallest_to_top(a, b);
+	ft_putstr_fd("pb\n", 1);
 	op_pb(a, b);
 	send_operations_3(a, b);
-	// print_stack(a);
-	// print_stack(b);
-	if (a->content[0] > b->content[1])
-	{
-		while (a->content[2] < b->content[1])
-		{
-			ft_putstr_fd("ra\n", 1);
-			op_ra(a, b);
-			i++;
-		}
-		ft_putstr_fd("pa\n", 1);
-		op_pa(a, b);
-	}
-	else
-	{
-		ft_putstr_fd("pa\n", 1);
-		op_pa(a, b);
-		ft_putstr_fd("ra\n", 1);
-		op_ra(a, b);
-	}
-	// print_stack(a);
-	// print_stack(b);
-	while (i > 0)
-	{
-		ft_putstr_fd("rra\n", 1);
-		op_rra(a, b);
-		i--;
-	}
-	// print_stack(a);
-	// print_stack(b);
-	//printf("p2\n");
-	if (a->content[0] > b->content[0])
-	{
-		while (a->content[2] < b->content[0])
-		{
-			ft_putstr_fd("rra\n", 1);
-			op_rra(a, b);
-			i++;
-		}
-	}
-	else
-	{
-		ft_putstr_fd("pa\n", 1);
-		op_pa(a, b);
-		ft_putstr_fd("ra\n", 1);
-		op_ra(a, b);
-	}
-	// print_stack(a);
-	// print_stack(b);
-	// //move_smallest_to_top(a, b);
+	//print_stack(a);
+	//print_stack(b);
+
 	ft_putstr_fd("pa\n", 1);
 	op_pa(a, b);
-	// print_stack(a);
-	// print_stack(b);
-	// print_stack(a);
-	// print_stack(b);
+	ft_putstr_fd("pa\n", 1);
+	op_pa(a, b);
+	//print_stack(a);
+	//print_stack(b);
+	if ( a->content[4] > a->content[3])
+	{
+		ft_putstr_fd("sa\n", 1);
+		op_sa(a, b);
+	}
+	//print_stack(a);
+	//print_stack(b);
 }
 
 // 1 2 4     3 -1
@@ -219,8 +202,7 @@ int main(int ac, char **av)
 		send_operations_3(a, b);
 	else if (stack_size(a) == 5)
 		send_operations_5(a, b);
-	else
-		send_operations(a, b);
+
 	// print_stack(a);
 	// print_stack(b);
 	free_stack(a);
